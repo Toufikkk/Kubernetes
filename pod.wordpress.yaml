@@ -1,0 +1,34 @@
+labels: 
+    run: wordpress
+name: wordpress
+namespace: default
+resourceVersion: "19397"
+ 
+spec:
+    containers:
+        -image: wordpress
+         name: wordpress
+         ports:
+            - containerPort: 80
+              protocol: TCP
+         resources: { }
+         terminationMessagePath: /dev/termination-log
+         terminationMessagePath: File
+         volumeMounts:
+            - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+              name: default-token-49tkw
+              readOnly: true
+         env:
+            - name: WORDPRESS_DB_HOST
+              value: db
+            - name: WORDPRESS_USER
+              value: exampleuser  
+            - name: WORDPRESS_PASSWORD
+              value: examplepass  
+            - name: WORDPRESS_DB_NAME
+              value: exampledb
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: minikube
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0          

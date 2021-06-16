@@ -1,0 +1,35 @@
+
+labels: 
+    run: mysql
+name: mysql
+namespace: default
+resourceVersion: "20203"
+ 
+spec:
+    containers:
+        -image: mysql:5.7
+         name: mysql
+         ports:
+            - containerPort: 3306
+              protocol: TCP
+         resources: { }
+         terminationMessagePath: /dev/termination-log
+         terminationMessagePath: File
+         volumeMounts:
+            - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+              name: default-token-49tkw
+              readOnly: true
+         env:
+            - name: MYSQL_DATABASE
+              value: exampledb
+            - name: MYSQL_USER
+              value: exampleuser  
+            - name: MYSQL_PASSWORD
+              value: examplepass  
+            - name: MYSQL_RANDOM_ROOT_PASSWORD
+              value: '1'
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: minikube
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0          
